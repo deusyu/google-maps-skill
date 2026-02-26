@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "test": "bun test ./skills/gmaps/tests/cli.test.ts ./skills/gmaps/tests/engine.test.ts ./skills/gmaps/tests/validate.test.ts",
+    "gmaps:help": "bun skills/gmaps/scripts/gmaps.ts --help"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
