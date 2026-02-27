@@ -112,7 +112,7 @@ After installation, just talk to Claude in any language:
 ```
 
 ```
-从福冈到�的鹿儿岛怎么走，有几种方式？
+从福冈到鹿儿岛怎么走，有几种方式？
 ```
 
 ```
@@ -128,6 +128,37 @@ What timezone is Bangkok in?
 ```
 
 Claude reads the map data, translates place names, and gives you a clear answer — no need to memorize any commands.
+
+## Architecture
+
+This project uses a **declarative command-as-module** pattern:
+
+- Each command is a standalone file exporting a `CommandDef` configuration object
+- A generic engine reads the config and executes — no per-command execution logic needed
+- A generic validator auto-checks input flags based on flag definitions
+- Supports two auth modes (query param / header) and two HTTP methods (GET / POST)
+
+**Adding a new command = 1 new file + 1 line in the registry.**
+
+```
+commands/
+├── geocode.ts          # Each file is a declarative command definition
+├── directions.ts       # POST + header auth + fieldMask
+├── place-detail.ts     # Dynamic URL (buildUrl)
+├── ...
+└── index.ts            # Registry: Map<string, CommandDef>
+```
+
+Compared to the earlier [amap-skill](https://github.com/deusyu/rainman-skills) (AMap / Gaode Maps):
+
+| | amap-skill | google-maps-skill |
+|---|---|---|
+| Command definition | 300-line switch | One file per command, declarative |
+| Validation | 490-line switch | Generic schema-driven ~55 lines |
+| HTTP | GET only | GET + POST |
+| Auth | query param only | query or header, per command |
+| Route commands | 8 (4 modes x 2 variants) | 1 `directions --mode` |
+| Adding a command | Touch 4+ files | 1 new file + 1 registry line |
 
 ## License
 
