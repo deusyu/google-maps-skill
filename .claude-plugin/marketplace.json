@@ -1,0 +1,22 @@
+{
+  "name": "google-maps-skill",
+  "owner": {
+    "name": "deusyu",
+    "email": "rainman@deusyu.app"
+  },
+  "metadata": {
+    "description": "AI-powered Google Maps skill for Claude Code — geocoding, directions, places search, elevation, timezone via natural conversation",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "gmaps",
+      "description": "Google Maps Platform API — geocoding, reverse-geocoding, directions, places search, nearby, place detail, elevation, timezone",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/gmaps"
+      ]
+    }
+  ]
+}
